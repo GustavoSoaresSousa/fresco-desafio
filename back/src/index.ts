@@ -1,8 +1,10 @@
 import express from 'express';
 import cors from 'cors';
+import dotenv from 'dotenv';
+dotenv.config();
 
-const route = express.Router();
-
+import { routesProduto } from './routes/produtoRoutes';
+import { routesUsuarios } from './routes/userRoutes';
 
 class App {
   app: any;
@@ -18,11 +20,8 @@ class App {
   }
   
   routes() {
-    this.app.use(
-      route.get('/', (req, res) => {
-        res.send('afjliaflafj')
-      })
-    )
+    this.app.use('/usuario/', routesUsuarios);
+    this.app.use('/produto/', routesProduto);
   }
 }
 

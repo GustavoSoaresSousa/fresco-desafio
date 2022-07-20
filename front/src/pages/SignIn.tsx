@@ -49,6 +49,8 @@ export default function SignIn() {
       email: user.email,
       senhaVirtual: user.password
     });
+    const data = response.data
+    localStorage.setItem('token', JSON.stringify(data.token));
     setUser(UserInitialsValues)
     navigate('/home')
   }

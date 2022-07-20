@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FormEvent, useState} from "react";
+import React, {ChangeEvent, FormEvent, useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../services/api";
 import { useInfoProduct } from '../hooks/useInfoProduct'
@@ -16,6 +16,16 @@ type ProductType = {
 
 export function EditProduct(){
   const { product } = useInfoProduct();
+
+  useEffect(() => {
+    const tokenOfLocalStorage = localStorage.getItem('token');
+    if (!tokenOfLocalStorage) return navigate('/');
+
+    if (tokenOfLocalStorage) {
+      api.defaults.headers.common['Authorization'] = `Bearer ${JSON.parse(tokenOfLocalStorage)}`
+    }
+    
+  }, [])
 
   const ProductValuesInitials = {
     name: product?.nome,
